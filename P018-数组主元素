@@ -1,0 +1,22 @@
+
+/*找到一个乱序数组中的主元素*/
+/*主元素：元素值占据数组数量的>n/2 , 必须要严格大于*/
+/*
+    1,2,3,4,5,1,1  无  n=7, cnt_1=3
+    1,2,3,4,1,1,1  有  n=7, cnt_1=4
+*/
+
+int Find_mid() {
+	int num = a[0], cnt = 1;
+	for (int i = 1; i < n; i++) {
+		if (a[i] != num) {
+			cnt--;
+			if (cnt < 0) {
+				num = a[i];
+				cnt = 1;
+			}
+		}
+		else cnt++;
+	}
+	if (cnt) return num;
+}
