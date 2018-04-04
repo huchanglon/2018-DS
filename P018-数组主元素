@@ -20,4 +20,5 @@ int Find_mid() {
 		else cnt++;
 	}
 	if (cnt) return num;
+	else return -1;
 }
