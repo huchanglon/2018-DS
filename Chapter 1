@@ -1,0 +1,11 @@
+void Rev(int st, int en) {
+	while (st < en) {
+		swap(a[st++], a[en--]);
+	}
+}
+
+void OP() {
+	Rev(0, p - 1);           //将前部分逆序
+	Rev(p , MAXSIZE - 1);    //将后部分逆序
+	Rev(0, MAXSIZE - 1);     //整体逆序
+}
