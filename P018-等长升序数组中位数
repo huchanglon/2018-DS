@@ -1,4 +1,12 @@
-/**/
+
+/*求两个等长升序数组中位数*/
+/*P018 题目11 [2011年考研真题]*/
+/*
+    1.若 a=b 则算法结束
+    2.若 a<b 舍弃a中较小的一半 & b中较大的一半 [两次舍弃的量要相等]
+    3.若 a>b 舍弃a中较大的一半 & b中较小的一半 [两次舍弃的量要相等]        
+*/
+
 
 int M_Search(int n) {
 	int st1 = 0, st2 = 0, en1 = n - 1, en2 = n - 1, mid1, mid2;
@@ -6,7 +14,7 @@ int M_Search(int n) {
 		mid1 = (st1 + en1) / 2;
 		mid2 = (st2 + en2) / 2;
 		if (a[mid1] == b[mid2]) return a[mid1];  //情况1
-		if (a[mid1] < b[mid2]) {				 //情况2
+		if (a[mid1] < b[mid2]) {		 //情况2
 			if ((st1 + en1) % 2 == 0) {
 				st1 = mid1;
 				en2 = mid2;
@@ -16,7 +24,7 @@ int M_Search(int n) {
 				en2 = mid2;
 			}
 		}
-		else {									  //情况3
+		else {					 //情况3
 			if ((st2 + en2) % 2 == 0) {
 				en1 = mid1;
 				st2 = mid2;
