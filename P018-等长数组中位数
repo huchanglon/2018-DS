@@ -1,0 +1,31 @@
+/**/
+
+int M_Search(int n) {
+	int st1 = 0, st2 = 0, en1 = n - 1, en2 = n - 1, mid1, mid2;
+	while (st1 != en1 || st2 != en2) {
+		mid1 = (st1 + en1) / 2;
+		mid2 = (st2 + en2) / 2;
+		if (a[mid1] == b[mid2]) return a[mid1];  //情况1
+		if (a[mid1] < b[mid2]) {				 //情况2
+			if ((st1 + en1) % 2 == 0) {
+				st1 = mid1;
+				en2 = mid2;
+			}
+			else {
+				st1 = mid1 + 1;
+				en2 = mid2;
+			}
+		}
+		else {									  //情况3
+			if ((st2 + en2) % 2 == 0) {
+				en1 = mid1;
+				st2 = mid2;
+			}
+			else {
+				en1 = mid1;
+				st2 = mid2 + 1;
+			}
+		}
+	}
+	return a[st1] < b[st2] ? a[st1] : b[st2];
+}
