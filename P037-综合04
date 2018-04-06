@@ -1,0 +1,23 @@
+
+/*删除有头节点单链表中最小的节点，保证最小元素唯一*/
+/*P037 习题04*/
+
+typedef int ElemType;
+
+typedef struct LNode {
+	ElemType Data;
+	struct LNode *next;
+}LNode, *LinkeList;
+
+void Del_Min_X(LinkeList &L) {
+	LNode *p = L, *pre = p->next;
+	LNode *min = p, *pre_min = pre;
+	while (p != NULL) {
+		if (p->Data < min->Data) {
+			min = p; pre_min = pre;
+		}
+		pre = p; p = p->next;
+	}
+	pre_min->next = min->next;
+	free(min);
+}
