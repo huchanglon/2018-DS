@@ -1,0 +1,37 @@
+
+/*设计一个算法使有头节点链表元素递增*/
+/*P037 题目06 [习题]*/
+
+/*对链表进行直接插入排序 O(n^2)*/
+void Link_Sort(LinkeList &L) {
+	LNode *p = L->next, *pre;
+	LNode *rear = p->next;
+	p->next = NULL;
+	p = rear;
+	while (p != NULL) {
+		rear = p->next;
+		pre = L;
+		while (pre->next != NULL && pre->next->Data < p->Data)
+			pre = pre->next;
+		p->next = pre->next;
+		p = rear;
+	}
+}
+
+/*先存在数组里排序，然后再逐一赋值给链表 O(nlongn) + O(n) = O(nlongn)*/
+
+int cmp(const void *a,const void * b) { return *(int*)a < *(int*)b; }
+
+void Link_Sort(LinkeList &L) {
+	int a[MaxSize] = { 0 }, cnt = 0;
+	LNode *temp = L->next;
+	while (temp != NULL) {
+		a[cnt] = temp->Data;
+		cnt++;
+	}
+	qsort(a, cnt, sizeof(int), cmp);  //qsort只能这样用
+	temp = L->next;  cnt = 0;
+	while (temp != NULL) {
+		temp->Data = a[cnt];
+	}
+}
