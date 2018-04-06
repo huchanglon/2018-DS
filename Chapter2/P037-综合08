@@ -1,0 +1,32 @@
+
+/*两个无头节点的链表，找到其公共节点*/
+/*P037 题目8 [习题]*/
+/*从公共节点之后的链表节点完全相同，只要“尾对其”然后从长的开始同步查找即可*/
+
+int Length(LinkeList L) {
+	int cnt = 0;
+	while (L != NULL) cnt++;
+	return cnt;
+}
+
+LinkeList Searvh_Common(LinkeList L1, LinkeList L2) {
+	int len1 = Length(L1), len2 = Length(L2);
+	int dis_len = len1 > len2 ? len1 : len2;
+	LinkeList LongLink, SortLink;
+	if (len1 > len2) {
+		LongLink = L1; SortLink = L2;
+	}
+	else {
+		LongLink = L2; SortLink = L1;
+	}
+	while (dis_len--) LongLink = LongLink->next;
+
+	while (LongLink != NULL) {
+		if (LongLink == SortLink) return LongLink;
+		else {
+			LongLink = LongLink->next;
+			SortLink = SortLink->next;
+		}
+	}
+	return NULL;
+} 
