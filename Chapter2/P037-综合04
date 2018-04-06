@@ -1,0 +1,17 @@
+
+/*就地实现有头节点的链表反转*/
+/*P037 题目04 [习题]*/
+/*从头开始，后面的依次指向头*/
+
+void Rev_One(LinkeList &L) {
+	LNode *p = L->next, *rear = L;
+	L->next = NULL;
+	while (p != NULL) {
+		rear = p->next;
+		p->next = L;
+		L = p;
+		p = rear;
+	}
+}
+
+/**/
