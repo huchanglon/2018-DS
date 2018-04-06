@@ -1,0 +1,19 @@
+
+/*找到只有头节点的单链表中倒数第K的节点的值，有返回1，无返回0*/
+/*P037 题目21 [2009年真题]*/
+
+/*定义两个指针p,q初始时指向头节点的下一个节点，到了q移动了k个之后两个指针开始同步移动*/
+int Search_K(LinkeList L, int k) {
+	LNode *p = L->next, *q = L->next;
+	int cnt = k;
+	while (cnt-- && p != NULL) {
+		p = p->next;
+	}
+	if (cnt) return 0;  //链表总数 < k
+	while (p != NULL) {
+		p = p->next;
+		q = q->next;
+	}
+	printf("%d", q->Data);
+	return 1;
+}
