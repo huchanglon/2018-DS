@@ -1,0 +1,16 @@
+
+/*带头节点的单链表L反向输出*/
+/*P034 习题03*/
+
+typedef int ElemType;
+
+typedef struct LNode {
+	ElemType Data;
+	struct LNode *next;
+}LNode, *LinkeList;
+
+void Rev_Prin(LinkeList L) {
+	if (L == NULL) return;
+	Rev_Prin(L->next);
+	printf(" %d", L->Data);
+}
