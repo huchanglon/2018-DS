@@ -1,0 +1,21 @@
+
+/*递归删除单链表L中所有X*/
+/*P037 题目1 [习题]*/
+
+typedef int ElemType;
+
+typedef struct LNode {
+	ElemType Data;
+	struct LNode *next;
+}LNode, *LinkeList;
+
+void Del_X_(LinkeList &L, ElemType X) {
+	if (L == NULL) return;
+	if (L->Data == X) {
+		LNode *temp = L;
+		L = L->next;
+		free(temp);
+		Del_X_(L, X);
+	}
+	else Del_X_(L->next, X);
+}
