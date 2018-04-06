@@ -1,0 +1,27 @@
+
+/*找到两个用链表存储字符串相同后缀的起始位置*/
+/*P038 题目22 [2012年真题]*/
+/*尾对其，该算法缺陷在于必须要保证存在后缀，题目已将说明将后缀存放在同一个节点开始储存，故遇到两个节点相等即可*/
+
+typedef struct Node {
+	char data;
+	struct Node *next;
+}SNode;
+
+int LinkLen(SNode *L) {
+	int cnt = 0;
+	while (L->next) cnt++;
+	return cnt;
+}
+
+SNode* find_addr(SNode *str1, SNode *str2) {
+	int m = LinkLen(str1), n = LinkLen(str2);
+	SNode *p, *q;
+	for (p = str1; m > n; m--) p = p->next;
+	for (q = str2; n > m; n--) q = q->next;
+	while (p->next && p->next != q->next) {
+		p = p->next;
+		q = q->next;
+	}
+	return p->next;
+}
