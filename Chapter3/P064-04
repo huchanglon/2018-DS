@@ -1,0 +1,22 @@
+
+/*判断链表中的字符串是否为中心对称*/
+/*P064 题目04 [练习]*/
+
+int Charge(LinkeList L, int n) {
+	stack<int> s;
+	LNode *p = L;
+
+	for (int i = 0; i < n / 2; i++) {
+		s.push(p->Data);
+		p = p->next;
+	}
+	if (n % 2 == 1) p = p->next;  //如果是偶数长度则剔除中间节点
+
+	while (p) {
+		if (s.top() == p->Data) {
+			s.pop();
+		}
+		else return 0;  //一旦有一个对不上则肯定不是中心对称
+	}
+	return 1;
+}
