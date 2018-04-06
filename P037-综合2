@@ -1,0 +1,47 @@
+
+/*删除带有头节点单链表L中所有X*/
+/*P037 习题2*/
+/*因为有头节点，所以不能使用递归实现*/
+
+typedef int ElemType;
+
+typedef struct LNode {
+	ElemType Data;
+	struct LNode *next;
+}LNode, *LinkeList;
+
+//顺序遍历法
+void Del_X_(LinkeList &L, ElemType X) {
+	LNode *p = L->next, *pre = L, *q;
+	while (p != NULL) {
+		if (p->Data == X) {
+			q = p;
+			p = p->next;
+			pre->next = p;
+			free(q);
+		}
+		else {
+			pre = p;
+			p = p->next;
+		}
+	}
+}
+
+//尾插法
+//当节点值不为X的时候将其连接到L尾部，否则释放
+void Del_X_(LinkeList &L, ElemType X) {
+	LNode *p = L->next, *rear = L, *q;
+	while (p != NULL) {
+		if (p->Data == X) {
+			rear->next = p;
+			rear = p;
+			p = p->next;
+		}
+		else {
+			q = p;
+			p = p->next;
+			free(q);
+		}
+	}
+	rear->next = NULL;
+}
