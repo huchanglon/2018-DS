@@ -1,0 +1,24 @@
+
+/*单链表剔除绝对值相同的节点*/
+/*P038 题目23 [2015年真题]*/
+
+void Ears_S(LinkeList L, int n) {
+	LNode *p = L, *u, *pre = L;
+	int *q, m;
+	q = (int*)malloc(sizeof(int) * (n + 1));
+	for (int i = 0; i < n; i++) *(q + i) = 0;
+
+	while (p->next) {
+		m = p->next->Data > 0 ? p->next->Data : -1 * p->next->Data;
+		if (q[m]) {
+			u = p->next;
+			p->next = u->next;
+			free(u);
+		}
+		else {
+			q[m]++;
+			p = p->next;
+		}
+	}
+	free(q);
+}
