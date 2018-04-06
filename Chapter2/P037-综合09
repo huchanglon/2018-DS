@@ -1,0 +1,20 @@
+
+/*一个有头节点的链表，升序输出，不允许使用辅助数组*/
+/*P037 题目09 [习题]*/
+
+void Prin_Link(LinkeList &head) {
+	LNode *p, *pre, *u;
+	while (head->next) {
+		pre = head;
+		p = pre->next;
+		while (p->next->Data < pre->next->Data) {
+			pre = p;
+			p = p->next;
+		}
+		printf(" %d", pre->next->Data);
+		u = pre->next;
+		pre->next = u->next;
+		free(u);
+	}
+	free(head);
+}
