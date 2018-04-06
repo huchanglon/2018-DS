@@ -1,0 +1,19 @@
+
+/*删除有头节点链表中处于一个区间的所有元素*/
+/*P037 题目07 [习题]*/
+
+void Del_Range(LinkeList & L, ElemType X, ElemType Y) {
+	LNode *temp = L->next, *pre = temp, *q;
+	while (temp != NULL) {
+		if (temp->Data >= X && temp->Data <= Y) {
+			q = temp;
+			temp = temp->next;
+			pre->next = temp;
+			free(q);
+		}
+		else {
+			pre = temp;
+			temp = temp->next;
+		}
+	}
+}
