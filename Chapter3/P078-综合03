@@ -1,0 +1,86 @@
+
+/*使用两个栈实现队列的操作*/
+/*P078 题目03 [习题]*/
+/*存在缺陷：在某些情况下不能全部利用两个栈的空间*/
+
+
+#include <stdio.h>
+#define MaxSize 50
+
+typedef int Elemtype;
+
+typedef struct {
+	Elemtype Data[MaxSize];
+	int top;
+}Stack;
+
+bool StackEmpty(Stack s) {
+	if (s.top == -1) return true;
+	else return false;
+}
+
+bool Push(Stack s, Elemtype X) {
+	if (s.top == MaxSize - 1) return false;
+	s.Data[++s.top] = X;
+	return true;
+}
+
+bool Pop(Stack s, Elemtype &X) {
+	if (s.top == -1) return false;
+	X = s.Data[s.top--];
+	return true;
+}
+
+bool GetTop(Stack s, Elemtype &X) {
+	if (s.top == -1) return false;
+	X = s.Data[s.top];
+	return true;
+}
+
+bool StackOverFlow(Stack s) {
+	if (s.top == MaxSize - 1) return true;
+	return false;
+}
+
+/*使用两个栈实现队列操作*/
+Elemtype temp;
+
+int EnQueue(Stack S1, Stack S2, Elemtype X) {
+	if (!StackOverFlow(S1)) {
+		Push(S1, X);
+		return 1;
+	}
+	if (StackOverFlow(S1) && !StackEmpty(S2)) {
+		printf("队列满");
+		return 0;
+	}
+	if (StackEmpty(S2)) {
+		while (!StackOverFlow(S2) && StackEmpty(S1)) {
+			Pop(S1, temp);
+			Push(S2, temp);
+		}
+	}
+	Push(S1, X);
+	return 1;
+}
+
+void Dequeue(Stack S1, Stack S2, Elemtype &X) {
+	if (!StackEmpty(S2)) {
+		Pop(S2, X);
+	}
+	else if (StackEmpty(S1)) {
+		printf("队列空");
+	}
+	else {
+		while (!StackEmpty(S1)) {
+			Pop(S1, temp);
+			Push(S2, temp);
+		}
+		Pop(S2,X);
+	}
+}
+
+int QueueEmpty(Stack S1, Stack S2) {
+	if (StackEmpty(S1) && StackEmpty(S2)) return 1;
+	else return 0;
+}
