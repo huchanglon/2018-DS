@@ -1,0 +1,49 @@
+
+/*使用栈操作，要求随时能够获得当前栈中最小元素的值*/
+/*P099 思维扩展*/
+/*使用一个主栈和一个min栈*/
+
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+stack<int> main_stack;
+stack<int> min_stack;
+
+
+//push推入，pop弹出，cheak检查最小值
+int main() {
+	char str[20];
+	int temp, top;
+	while (1) {
+		scanf("%s", str);
+		if (strcmp(str, "end") == 0) {
+			printf("Process End\n");
+			break;
+		}
+		if (str[1] == 'u') {
+			scanf("%d", &temp);
+			main_stack.push(temp);
+			if (min_stack.empty()) min_stack.push(temp);
+			else {
+				top = min_stack.top();
+				if (temp < top) min_stack.push(temp);
+				else min_stack.push(top);
+			}
+		}
+		else if (str[1] == 'o') {
+			if (main_stack.empty()) {
+				printf("Stack Empty\n");
+				continue;
+			}
+			else {
+				main_stack.pop();
+				min_stack.pop();
+			}
+		}
+		else if (str[1] == 'e')printf("min number is : %d\n", min_stack.top());
+		else printf("Error Operation\n");
+	}
+	return 0;
+}
