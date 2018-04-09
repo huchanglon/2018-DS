@@ -1,0 +1,37 @@
+
+/*使用非递归方法计算树的高度*/
+/*P122 题目05 [习题]*/
+/**/
+
+/*递归*/
+int max_layer = 0;
+GetHigh(Root, 1);
+
+int GetHigh(BinTree node, int layer) {
+  if (!node) return 0;
+	if (layer > max_layer) max_layer = layer;
+	if (node->left) GetHigh(node->left, layer + 1);
+	if (node->right) GetHigh(node->right, layer + 1);
+}
+
+
+/*非递归*/
+/*rear表示了当前总共节点数目，front表示当前节点，last表示本层节点最右节点所在的下标*/
+/*每推入一个++rear，每提取一个++front，相当于用front去追赶last，相遇leve++，last更新*/
+int BTdepth(BinTree T) {
+	if (!T) return 0;
+	int front = -1, rear = -1;
+	int last = 0, level = 0;
+	BinTree q[MaxSize];
+	q[++rear] = T;
+	BinTree p;
+	while (front < rear) {
+		p = q[++front];
+		if (p->left) q[++rear] = p->left;
+		if (p->right) q[++rear] = p->right;
+		if (front == last) {
+			level++; last = rear;
+		}
+	}
+	return level;
+}
