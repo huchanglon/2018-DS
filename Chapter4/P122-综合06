@@ -1,0 +1,20 @@
+
+/*已知先序和中序序列，构建二叉树*/
+/*P122 题目06 [习题]*/
+/*PAT常考题*/
+
+ElemType Pre[MaxSize], In[MaxSize];
+
+BinTree PreInCreat(int pre_st, int pre_en, int in_st, int in_en) {
+	BinTree root = (BinTree)malloc(sizeof(struct BinNode));
+	root->data = Pre[pre_st];
+	int i;
+	for (i = in_st; Pre[pre_st] != In[i]; i++);  //找到根节点在中序序列中的位置
+	int L_len = i - in_st;
+	int R_len = in_en - i;
+	if (L_len) root->left = PreInCreat(pre_st + 1, pre_st + L_len, in_st, in_st + L_len - 1);
+	else root->right = NULL;
+	if (R_len) root->right = PreInCreat(pre_en - R_len + 1, pre_en, in_en - R_len + 1, in_en);
+	else root->right = NULL;
+	return root;
+}
