@@ -1,0 +1,30 @@
+
+/*使用非递归方法完成树的后序遍历*/
+/*P122 题目03 [习题]*/
+/*使用一个辅助栈*/
+/*指针r记录上一个被弹出的节点*/
+
+void PostOrder(BinTree T) {
+	stack<BinTree> s;
+	BinTree p = T, r = NULL;
+	while (p || !s.empty()) {
+		if (p) {   //走到最左边
+			s.push(p);
+			p = p->left;
+		}
+		else {     //开始走右边
+			p = s.top();
+			if (p->right && p->right != r) {   //节点有右孩子 && 该右孩子没有被访问过
+				p = p->right;
+				s.push(p);
+				p = p->left;  //右边的最左
+			}
+			else {    //没右孩子 || 右孩子被访问过
+				s.pop();
+				printf("%d ", p->data);
+				r = p;
+				p = NULL;
+			}
+		}
+	}
+}
