@@ -1,0 +1,21 @@
+
+/*对一个二叉树进行镜像*/
+/*P122 题目09 [习题]*/
+
+/*自顶向下*/
+void Maior_Tree(BinTree &T) {
+	BinTree temp = T->left;
+	T->right = T->left;
+	T->left = temp;
+	if (T->left) Maior_Tree(T->left);
+	if (T->right) Maior_Tree(T->right);
+}
+
+/*自底向上*/
+void Maior_Tree(BinTree &T) {
+	Maior_Tree(T->left);
+	Maior_Tree(T->right);
+	BinTree temp = T->left;
+	T->left = T->right;
+	T->right = temp;
+}
