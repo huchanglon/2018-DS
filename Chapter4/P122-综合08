@@ -1,0 +1,12 @@
+
+/*统计二叉树中有两个孩子节点的个数*/
+/*P122 题目08 [习题]*/
+
+
+int Count_Dom(BinTree node) {
+	if (!node) return 0;
+	if (node->left && node->right)
+		return Count_Dom(node->left) + Count_Dom(node->right) + 1;
+	else
+		return Count_Dom(node->left) + Count_Dom(node->right);
+}
