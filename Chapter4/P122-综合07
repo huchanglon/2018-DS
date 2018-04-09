@@ -1,0 +1,29 @@
+
+/*判定一棵树是不是完全二叉树*/
+/*P122 题目07 [习题]*/
+/*完全二叉树特性：节点可以没有右孩子，但必须有左孩子 或者两个孩子都没有*/
+/*先按照满二叉树的情况将节点一一推入队列中*/
+/*扫描队列，如果在NULL节点后面出现了!NULL节点，那么一定不少完全二叉树*/
+
+bool IsCompTree(BinTree T) {
+	if (!T) return 1;
+	queue<BinTree> q;
+	q.push(T);
+	BinTree temp;
+	while (!q.empty()) {
+		temp = q.front();
+		q.pop();
+		if (temp) {  //按照满二叉树的情况将左右孩子都推入队列，可能导致队伍中出现多个NULL节点，但没关系
+			q.push(temp->left);
+			q.push(temp->right);
+		}
+		else {       //当前队伍头节点是BULL
+			while (!q.empty()) {      //检查队伍是有非空节点，有的话一定不是完全二叉树
+				temp = q.front();
+				q.pop();
+				if (temp) return 0;
+			}
+		}
+	}
+	return 1;
+}
