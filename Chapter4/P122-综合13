@@ -1,6 +1,48 @@
 
 /*找到两个节点p和q最近的公共祖先*/
 /*P122 题目13 [习题]*/
-/*关联Chapter3 P109 综合05 (将这个树视为满二叉树，进行层次遍历)*/
+/*关联Chapter3 P109 综合05 (使用顺序储存结构储存，故肯定以满二叉树的形式保存)*/
+/*本题在于以链式结构储存，如果单纯使用补齐满二叉树难度很大，此处使用辅助栈方式*/
 
-/*综合05*/
+
+typedef struct {
+	BinTree t;
+	int tag;      //tag=0左子女被访问，tag=1右子女被访问
+}stack;
+
+stack s[MaxSize], s1[MaxSize];
+
+BinTree Ancestor(BinTree T, BinNode *q, BinNode *p) {  //因为给的是节点，故不能使用BinTree
+	top = 0; top1 = 0;
+	BinTree temp = T;
+	while (temp || top) {
+		while (temp && temp != q && temp != p) {
+			while (temp) {
+				s[++top].t = temp;
+				s[top].tag = 0;
+				temp = temp->left;
+			}
+		}
+
+		while (top && s[top].tag == 1) {
+			if (s[top].t == p) {
+				for (int i = 1; i <= top; i++)
+					s1[i] = s[i];
+				top1 = top;
+			}
+			if (s[top].t == q) {
+				for (int i = top; i > 0; i--)
+					for (int j = top1; j > 0; j--)
+						if (s1[j].t == s[i].t)
+							return s[i].t;
+				top--;
+			}
+		}
+
+		if (top) {
+			s[top].tag = 1;
+			temp = s[top].t->right;
+		}
+	}
+	return NULL;
+}
