@@ -1,0 +1,15 @@
+
+/*访问先序遍历的第K个节点的值*/
+/*P122 题目10 [习题]*/
+
+
+char ch;
+ElmentTpye Search_K(BinTree T, int K) {
+	if (!T) return '#';
+	if (i == K) return T->data;
+	i++;
+	ch = Search_K(T->lefe, K);
+	if (ch == '#') return ch;
+	ch = Search_K(T->right, K);
+	return ch;
+}
