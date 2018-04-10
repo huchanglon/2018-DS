@@ -10,3 +10,12 @@ int Count_Dom(BinTree node) {
 	else
 		return Count_Dom(node->left) + Count_Dom(node->right);
 }
+
+
+int cnt = 0;
+
+void Count_Dom(BinTree T) {
+	if (T->lefe && T->right) cnt++;
+	if (T->lefe) Count_Dom(T->lefe);
+	if (T->right) Count_Dom(T->right);
+}
