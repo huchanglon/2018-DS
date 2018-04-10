@@ -1,0 +1,30 @@
+
+/*输出树中值为X所有祖宗节点*/
+/*P122 题目12 [练习]*/
+/*使用一个辅助栈*/
+
+typedef struct {
+	BinTree t;
+	int tag;      //tag=0左子女被访问，tag=1右子女被访问
+}stack;
+
+void Prinf_Anst(BinTree T) {
+	stack s[MaxSize];
+	int top = 0;
+	while (T || top != 0) {
+		while (T && T->data != X) {
+			s[++top].t = T;
+			s[top].tag = 0;
+			T = T->left;
+		}
+		if (T->data == X) {
+			for (int i = 1; i <= top; i++) printf("%d ", s[i].t->data);
+			exit(0);
+		}
+		while (top != 0 && s[top].tag == 1) top--;
+		if (top != 0) {
+			s[top].tag = 1;
+			T = s[top].t->right;
+		}
+	}
+}
