@@ -1,0 +1,65 @@
+
+/*删除以X为值的子树*/
+/*P122 题目10 [练习]*/
+/*使用后序遍历删节点，层次遍历找节点*/
+
+void Del_X(BinTree T) {
+	if (T) {
+		Del_X(T->lefe);
+		Del_X(T->right);
+		free(T);
+	}
+}
+
+/**************************************************/
+
+void Level_Order(BinTree T) {
+	queue<BinTree> q;
+	q.push(T);
+	BinTree temp;
+	while (!q.empty()) {
+		temp = q.front();
+		q.pop();
+		if (temp->data == X) {
+			Del_X(temp);
+			continue;
+		}
+		if (temp->lefe) q.push(temp->lefe);
+		if (temp->right) q.push(temp->right);
+	}
+}
+
+/**************************************************/
+
+
+void Level_Order(BinTree T) {
+	queue<BinTree> q;
+	q.push(T);
+	BinTree temp;
+	if (T) {
+		if (T->data == X) {
+			Del_X(T);
+			exit(0);
+		}
+		q.push(T);
+		while (!q.empty()) {
+			temp = q.front();
+			q.pop();
+			if (temp->lefe) {
+				if (temp->lefe->data == X) {
+					Del_X(temp->lefe);
+					temp->lefe = NULL;
+				}
+				else q.push(temp);
+			}
+			if (temp->right) {
+				if (temp->right->data == X) {
+					Del_X(temp->right);
+					temp->right = NULL;
+				}
+				else q.push(temp->right);
+			}
+		}
+	}
+}
+
