@@ -1,0 +1,23 @@
+
+/*将一棵树叶节点从左到右连接起来*/
+/*P122 题目16 [习题]*/
+/*无论时Pre、In、Post遍历，对叶节点的访问都是从左到右的*/
+
+/*此处使用什么序遍历都是可以的*/
+BinTree PreOrder(BinTree T) {
+	if (T) {
+		if (!T->left && !T->right){
+			if (pre == NULL) {     //处理第一个节点
+				head = T;
+				pre = T;
+			}
+			else {
+				pre->right = T;
+				pre = T;
+			}
+		}
+		PreOrder(T->left);
+		PreOrder(T->right);
+	}
+	return head;
+}
