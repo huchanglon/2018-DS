@@ -1,0 +1,13 @@
+
+/*判断两棵树是否相似*/
+/*P122 题目17 [习题]*/
+
+/*相似：不考虑两棵树节点上的值，只考虑两棵树的拓扑结构*/
+
+bool simlar(BinTree A, BinTree B) {
+	if (!A && !B) return 1;
+	else if (!A || !B) return 0;
+	else {
+		return simlar(A->left, B->left) && simlar(A->right, B->right);
+	}
+}
