@@ -1,0 +1,50 @@
+
+/*一直满二叉树先序序列，求后续序列*/
+/*P122 题目14 [习题]*/
+
+
+/***********   Pre  ->  In & Post ******************/
+
+/*pre->post*/
+void Pre_2_Post(int pre_st, int pre_end, int post_st, int post_end) {
+	if (pre_st <= pre_end) {
+		post[post_end] = pre[pre_st];
+		int half = (post_end - pre_st) / 2;
+		Pre_2_Post(pre_st + 1, pre_st + half, post_st, post_st + half - 1);
+		Pre_2_Post(pre_st + half + 1, pre_end, post_st + half, post_end);
+	}
+}
+
+/*pre->in*/
+void Pre_2_in(int pre_st, int pre_end, int in_st, int in_end) {
+	if (pre_st <= pre_end) {
+		int i = in_st;
+		while (pre[pre_st] != in[i]) i++;
+		Pre_2_in(pre_st + 1, pre_st + i, in_st, in_st + i - 1);
+		Pre_2_in(pre_st + i + 1, pre_end, in_st + i + 1, in_end);
+	}
+}
+
+/***********   Post  ->  In & Pre ******************/
+
+/*post->pre*/
+void Post_2_pre(int post_st, int post_end, int pre_st, int pre_end ) {
+	if (pre_st <= pre_end) {
+		pre[pre_st] = post[post_end];
+		int half = (post_st + post_end) / 2;
+		Post_2_pre(post_st, post_st + half - 1, pre_st + 1, pre_st + half);
+		Post_2_pre(post_st + half, post_end, pre_st + half + 1, pre_end);
+	}
+}
+
+/*post->in*/
+void Post_2_in(int post_st, int post_end, int in_st, int in_end) {
+	if (post_st <= post_end) {
+		int i = in_st;
+		while (post[post_end] != in[i]) i++;
+		in[in_end] = post[post_end];
+		Post_2_in(post_st, post_st + i - 1, in_st, in_st + i - 1);
+		Post_2_in(post_st + i, post_end, in_st + i + 1, in_end);
+	}
+}
+
