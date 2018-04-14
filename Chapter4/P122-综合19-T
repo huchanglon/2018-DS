@@ -1,0 +1,16 @@
+
+/*计算带权树的WPL，所有节点权值*路径长度*/
+/*P122 题目19 []*/真题
+
+int WPL(BinTree T, int path) {
+	if (!T) return 0;
+	else return (T->weight * path) + WPL(T->left, path + 1) + WPL(T->right, path + 1);
+}
+
+int WPL(BinTree root, int deep) {
+	static int wpl = 0;
+	if (!root->left && !root->right) wpl += deep * root->weight;
+	if (root->left) WPL(root->left, deep + 1);
+	if (root->right) WPL(root->right, deep + 1);
+	return wpl;
+}
