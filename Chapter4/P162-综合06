@@ -1,0 +1,19 @@
+
+/*判断一棵树是不是二叉排序树*/
+/*P162 题目06 [习题]*/
+/*利用二叉排序树中序遍历的顺序性*/
+
+int pre = -9999999;
+
+/*借助中序遍历的顺序性，如果是二叉排序树中序遍历一定是顺序的*/
+bool Is_BST(BinTree T) {
+	if (!T) return true;    //如果该节点为空，则是
+
+	bool flag1 = Is_BST(T->left);
+	
+	if (!flag1 || pre > T->data) return false;
+
+	pre = T->data;          //更新pre值
+
+	return Is_BST(T->right);
+}
