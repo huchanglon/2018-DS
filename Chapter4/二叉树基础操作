@@ -1,0 +1,31 @@
+
+
+typedef struct node {
+	Elemtype data;
+	struct node *left, *right;
+}BinNode, *BinTree, BSTNode;
+
+BSTNode *BST_Search(BinTree T, Elemtype X) {
+	while (T && T->data != X) {
+		if (X < T->data) T = T->left;
+		else T = T->right;
+	}
+	return T;
+}
+
+bool BST_Insert(BinTree &T, Elemtype X) {
+	if (!T) {
+		T = (BinTree)malloc(sizeof(BSTNode));
+		T->data = X;
+		T->left = T->right = NULL;
+		return true;
+	}
+	if (T->data == X) return false;                //存在
+	else if (T->data > X) BST_Insert(T->left, X);  //大
+	else BST_Insert(T->right, X);                  //小
+}
+
+void Create_BST(BinTree &T, Elemtype str[], int n) {
+	T = NULL;
+	for (int i = 0; i < n; i++) BST_Insert(T, str[i]);
+}
