@@ -1,0 +1,10 @@
+
+/*设计递归算法统计‘孩子-兄弟’表示法中树的高度*/
+/*P146 题目06 [习题]*/
+/*如果节点为空返回0， 否则返回max(子女树高+1，兄弟树高)*/
+/*因为子女（左节点）为空代表到达叶子节点*/
+
+int height(Tree T) {
+	if (!T) return 0;
+	else return max(height(T->left) + 1, height(T->right));
+}
