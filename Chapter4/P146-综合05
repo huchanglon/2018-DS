@@ -1,0 +1,14 @@
+
+/*计算使用‘孩子-兄弟’表示法储存的叶子节点个数*/
+/*P146 题目05 [习题]*/
+
+typedef struct node {
+	Elemtype data;
+	struct node *left, *right;
+}*Tree;
+
+int level(Tree T) {
+	if (!T) return 0;
+	if (!T->left) return 1 + level(T->right);      //由于树用了孩子兄弟表示法，故与叶子节点在用一层的必定是其兄弟（参照树->森林的画法）
+	else return level(T->left) + level(T->right);
+}
