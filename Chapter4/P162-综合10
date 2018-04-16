@@ -1,0 +1,13 @@
+
+/*从大到小输出二叉排序树中不小于K的节点值*/
+/*P162 题目10 [习题]*/
+/*中序遍历保证了顺序性，只要将左右子树遍历顺序由从“左->右”转化为“you->左”即可获得从大到校的输出*/
+
+int K;
+
+void InOrder(BinTree T) {
+	if(!T) return;
+	InOrder(T->right);
+	if (T->data >= K) printf("%d ", T->data);
+	InOrder(T->left);
+}
