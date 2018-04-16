@@ -1,0 +1,27 @@
+
+/*找到二叉排序树中第K小的节点，要求使用递归*/
+/*P162 题目12 [习题]*/
+
+/*
+
+I. T->left为空：
+               1. k==1 , T为该节点
+               2. k!=1 , 在右子树查找
+II.T->left不空：
+               1. T->left->count == k-1 , T为该节点
+               2. T->left->count  > k-1 , 在左子树中找 
+               3. T->left->count  < k-1 , 在右子树中找第 k-(T->left->count+1)小的元素
+*/
+
+BinTree Search_K(BinTree T, int k) {
+	if (k<1 || k>T->count) return NULL;
+	if (!T->left) {
+		if (k == 1) return T;
+		else return Search_K(T->right, k - 1);
+	}
+	else {
+		if (T->left->count == k) return T;
+		if (T->left->count > k - 1) return Search_K(T->left, k);
+		if (T->left->count < k - 1) return Search_K(T->right, k - (T->left->count + 1));
+	}
+}
