@@ -1,0 +1,38 @@
+
+/*给定一个整数K，打印一棵树上路径节点相加 == K的所有路径*/
+/*P173 思维扩展*/
+
+
+BinTree ROOT;  //树根节点
+
+void Print_Ptah() {
+	BinTree temp;
+	while (!s.empty()) {
+		temp = s.top();
+		oth.push(temp);
+		s.pop();
+	}
+	printf("%d", oth.top()->data);
+	oth.pop();
+	while (!oth.empty()) {
+		printf(",%d", oth.top());
+		oth.pop();
+	}
+	s.push(ROOT);   //把树根重新推入栈中
+}
+
+void Find_Path(BinTree T, int k) {
+	if (!T) return;
+	k = k - T->data;
+	if (k == 0) {
+		if (!T->left && !T->right) {
+			s.push(T);  Print_Ptah();
+		}
+		return;
+	}
+	else if (k < 0) return;
+	else {
+		Find_Path(T->left, k);
+		Find_Path(T->right, k);
+	}
+}
