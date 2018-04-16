@@ -1,0 +1,39 @@
+
+/*找出二叉排序树中最大值和最小值*/
+/*P162 题目09 [习题]*/
+/*二叉排序树最值肯定在最左边和最右边，利用先序和后续遍历特性能够在一个函数中获得两个值*/
+
+int max_val = -99999, min_val = 99999;
+
+void Find_Max_Min(BinTree T) {
+	if (!T) return;
+	if (T->data < min_val) min_val = T->data;
+	Find_Max_Min(T->left);
+	Find_Max_Min(T->right);
+	if (T->data > max_val) max_val = T->data;
+}
+
+/*******************************************************************/
+
+
+int Find_max(BinTree T) {
+	if (T->data > max_val) max_val = T->data;
+	if (T->right) Find_max(T->right);
+}
+
+int Find_min(BinTree T) {
+	if (T->data < min_val) min_val = T->data;
+	if (T->left) Find_max(T->left);
+}
+
+/******************************************************************/
+
+int Find_max(BinTree T) {
+	while (T->right) T = T->right;
+	max_val= T->data;
+}
+
+int Fin_min(BinTree T) {
+	while (T->left) T = T->left;
+	min_val = T->data;
+}
