@@ -1,0 +1,16 @@
+
+
+/*求制定节点在该二叉排序树中所在层数*/
+/*P162 题目07 [习题]*/
+/*二叉排序树有一个特点：如果当前节点找不到则直接向下，层次+1，不会出现在另一个边出现的情况*/
+
+int level(BinTree T, BinNode *p) {
+	if (!T) return 0;
+	int n = 1;
+	while (T->data != p->data) {
+		if (T->data > p->data) T = T->left;   //左子树查找
+		else T->right;                        //右子树查找
+		n++;
+	}
+	return n;
+}
