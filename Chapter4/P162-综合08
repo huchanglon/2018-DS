@@ -1,0 +1,23 @@
+
+/*使用树的遍历想法判断一颗树是否是AVL树*/
+/*P162 题目08 [习题]*/
+
+void Judege(node * T, int &balance, int &h) {
+	int bal_l, bal_r, hig_l, hig_r;
+	if (!T) {
+		h = 0;
+		balance = 1;
+	}
+	if (!T->left && T->right) {
+		h = 1;
+		balance = 1;
+	}
+	else {
+		Judege(T->left, bal_l, hig_l);
+		Judege(T->right, bal_r, hig_r);
+		h = hig_l > hig_r ? hig_l : hig_r;
+		if (abs(hig_l - hig_r) < 2)
+			balance = bal_l & bal_r;     //查看左右子树是否平衡
+		else balance = 0;
+	}
+}
