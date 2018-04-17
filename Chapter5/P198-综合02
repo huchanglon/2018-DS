@@ -1,0 +1,36 @@
+
+/*判断一个图是不是一颗树*/
+/*P198 题目02 [习题]*/
+
+/*如果一个图是一棵树，则需要满足以下条件：       */
+/*1.图中没有环路                              */
+/*2.图是连通图，即不存在连通分量                */
+/*3.图中边的个数==n-1（树的特性）               */
+/*满足上述任意一个条件都可以视为一颗树           */
+/*但显然DFS实现更容易，而递归实现统计数量更容易   */
+
+/*[注]：环路是指不能沿着箭头方向从起点回到起点，并不是拓扑意义上的圈圈*/
+
+/*由于王道中对相关类阐述不清或并未阐述，此处用邻接矩阵int edge[][]作为是否存在边，事实上在PAT或者OJ上用这种方法最常见*/
+
+int edge[MaxSinze][MaxSinze];
+bool vis[MaxSinze];
+int GVnum, GEnum;    //记录图中节点数 & 边数  
+bool Is_Tree() {
+	memset(vis, false ,sizeof(vis));
+	int Vnum = 0, Enum = 0;           //点数 & 边数
+	DFS(1, Vnum, Enum);
+	if (Vnum == GVnum && Enum == GEnum - 1) return true;
+	else return false;
+}
+
+void DFS(int i, int &Vnum, int &Enum) {  //顶点编号，点数，边数
+	vis[i] = true;
+	Vnum++;
+	for (int j = 0; j < GVnum; j++) {   //此处如果用vector的话效率更高
+		if (!vis[j] && edge[i][j]) {
+			Enum++;
+			DFS(j, Vnum, Enum);
+		}
+	}
+}
