@@ -1,0 +1,47 @@
+
+/*基于DFS的非递归算法，图用邻接表表示*/
+/*P198 题目03 [习题]*/
+
+void DFS(int v) {
+	int w;
+	stack<int> s;
+	memset(vis, false, sizeof(vis));
+	s.push(v); vis[v] = true;   //vis用于记录是否已经入过栈
+	while (!s.empty()) {
+		int temp = s.top();
+		s.pop();
+		Operation(temp);
+		for (w = FirstNeighbor(temp); w >= 0; w = NextNeighbor(temp)) {
+			if (!vis[w]) {
+				vis[w] = true;
+				s.push(w);
+			}
+		}
+	}
+}
+
+/****************************************************************************/
+
+vector<int> v[MaxSinze];   //邻接表用向量表示 i->j 有路则 v[i].push(j)
+
+void Operation(int i) {
+	/*************/
+}
+
+void DFS(int st) {
+	int w;
+	stack<int> s;
+	memset(vis, false, sizeof(vis));
+	s.push(st); vis[st] = true;   //vis用于记录是否已经入过栈
+	while (!s.empty()) {
+		int temp = s.top();
+		s.pop();
+		Operation(temp);
+		for (int i = 0; i < v[temp].size(); i++) {
+			if (!vis[v[temp][i]]) {
+				vis[v[temp][i]] = true;
+				s.push(v[temp][i]);
+			}
+		}
+	}
+}
