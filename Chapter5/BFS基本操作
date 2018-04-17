@@ -1,0 +1,30 @@
+
+bool vis[MaxSinze];
+
+void BFS_Travel(Graph G) {
+	memset(vis, false, sizeof(vis));
+	for (int i = 0; i < G.vexnum; i++)
+		if (!vis[i]) BFS(G, i);
+}
+
+void Operation_Node(int i) {
+	/***********************/
+}
+
+void BFS(Graph G, int i) {
+	Operation_Node(i);
+	vis[i] = true;
+	queue<int> Q;
+	Q.push(i);
+	while (!Q.empty()) {
+		int temp = Q.front();
+		Q.pop();
+		for (int w = FirstNeghbor(G, i); w >= 0; w = NextNeighbor(G, i)) {
+			if (!vis[w]) {
+				Operation_Node(w);
+				vis[w] = true;
+				Q.push(w);
+			}
+		}
+	}
+}
