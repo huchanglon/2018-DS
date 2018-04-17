@@ -1,0 +1,34 @@
+
+
+#define MaxSinze 100
+
+typedef char VertexType;     //顶点数据类型
+typedef int EdgeType;        //带权图上权值数据类型
+typedef int InfoType;
+
+//邻接矩阵
+typedef struct {
+	VertexType Vex[MaxSinze];           //顶点表
+	EdgeType Edeg[MaxSinze][MaxSinze];  //边表
+	int vexnum, arcnum;                 //vexnumn定点数，arcnun边数
+}MyGraph;
+
+//边弧类型
+typedef struct ArcNode {                
+	int adjvex;                         //指向顶点的位置
+	struct ArcNode *next;               //指向下一个弧
+	InfoType Info;                      //边权值
+}ArcNode;
+
+//顶点类型
+typedef struct VNode{
+	VertexType data;
+	ArcNode *first;                     //指向第一条依附该顶点的弧（弧的起点是此顶点）
+}VNode, AdjList[MaxSinze];
+
+//邻接表
+typedef struct {
+	AdjList vertices;
+	int vexnum, arenum;
+}ALGraph;
+
