@@ -1,0 +1,42 @@
+
+/*分别使用BFS和DFS计算一个邻接表中是否存在 Vi->Vj的路径*/
+/*P198 题目04 [习题]*/
+
+int FirstNeighbor(int i) {    //返回顶点i第一个邻接点编号
+
+}
+
+int NextNeighbor(int i, int p) {   //返回除p之外顶点i的下一个顶点编号
+
+}
+
+bool Exist_Path_DFS(int i, int j) {
+	int p;
+	if (i == j) return true;
+	vis[i] = true;
+	for (p = FirstNeighbor(i); p >= 0; p = NextNeighbor(i, p)) {
+		if (!vis[p] && Exist_Path_DFS(p, j))
+			return true;
+	}
+	return false;
+}
+
+int adjvex(int i) {   //返回下一个指向节点编号
+
+}
+
+bool Exist_Path_BFS(int i, int j) {
+	memset(vis, false, sizeof(vis));
+	queue<int> s;
+	s.push(i);  vis[i] = true;
+	while (!s.empty()) {
+		int temp = s.front();
+		s.pop(); vis[temp] = true;
+		for (int w = FirstNeighbor(temp); w >= 0; w = NextNeighbor(temp, w)) {
+			int k = adjvex(w);
+			if (k == j) return true;
+			if (!vis[k]) s.push(k);
+		}
+	}
+	return false;
+}
