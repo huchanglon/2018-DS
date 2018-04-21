@@ -1,0 +1,15 @@
+
+/*将查找到的元素前移，以保证高效查找*/
+/*P238 题目07 [习题]*/
+
+int Exchabge_Search(int T[], int N, int X ){
+	int pre = 0, cur = 0;
+	while (cur < N) {
+		if (X == T[cur]) swap(T[cur], T[pre]);
+		else {
+			cur++;
+			if (pre) pre++;
+		}
+	}
+	return cur == N ? -1 : cur;
+}
