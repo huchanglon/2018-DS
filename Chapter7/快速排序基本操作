@@ -1,0 +1,35 @@
+
+/*快速排序流程：                                                                        */
+/*1.取第一个元素（或最后一个元素）为“轴点” pivot                                          */
+/*2.从后往前扫描，指针数为high = n-1, high-- ,  A[high] < pivot,    swap(A[high],pivot)  */
+/*3.从前往后扫描，直针数为low  = 0  , low++  ,  A[low]  > pivot,    swap(A[low] ,pivot)  */
+/*重复1-2-3过程,如果low==high则说明当前轴点已经到达正确位置                                */
+/*4.如果在进行第2步过程中发现high==0则轴点选取位置应该为A[1],依此类推                       */
+
+/*快速排序特性：                                                                         */
+/*1.如果使用递归实现，则最大递归深度为n, 最小递归深度为log(n)                               */
+/*2.每次轴点如果落在表的中间, 速度最快                                                     */
+/*3.如果表有序，速度最慢                                                                  */
+/*4.每轮下来,轴点一定出现在最终位置 [经过第i次,至少有i个元素落在了正确位置]                   */
+
+
+//
+int Pivot_Pos(int A[], int low, int high) {
+	int pivot = A[low];
+	while (low < high) {
+		while (low < high && A[high] > pivot) high--;
+		A[low] = A[high];
+		while (low < high && A[low] < pivot) low++;
+		A[high] = A[low];
+	}
+	A[low] = pivot;
+	return low;
+}
+
+void Quick_Sort(int A[], int low, int high) {
+	if (low < high) {
+		int pivot = Pivot_Pos(A, low, high);
+		Quick_Sort(A, low, pivot - 1);
+		Quick_Sort(A, pivot + 1, high);
+	}
+}
