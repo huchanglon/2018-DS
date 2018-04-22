@@ -1,0 +1,15 @@
+
+/*将所有奇数移动到所有偶数后面*/
+/*P290 题目03 [习题]*/
+/*本体有个最大的好处在于没要求数组有序性*/
+
+
+void Exchange(int A[], int low, int high) {
+	while (low < high) {
+		if (A[low] % 2 == 0) {
+			while (A[high] % 2 == 0) high--;
+			swap(A[low++], A[high--]);
+		}
+		else low++;
+	}
+}
