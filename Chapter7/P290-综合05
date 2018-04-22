@@ -1,0 +1,19 @@
+
+/*输出序列中第K个大小的元素*/
+/*P290 题目05 [习题]*/
+/*使用快速排序的特性：快速排序中每一轮就有一个数回到正确位置，只要检查当前这一轮中的rank是不是等于k即可*/
+
+int Pivot_pos(int A[], int low, int high,int k) {
+	int pivot = A[low];
+	int low_temp = low, high_temp = high;
+	while (low < high) {
+		while (low < high && A[high] > pivot) high--;
+		A[low] = A[high];
+		while (low < high && A[low] < pivot) low--;
+		A[high] = A[low];
+	}
+	A[low] = pivot;
+	if (low == k) return A[low];
+	else if (low > k) return Pivot_pos(A, low_temp, low - 1,k);
+	else return Pivot_pos(A, low + 1, high_temp, k - low);
+}
