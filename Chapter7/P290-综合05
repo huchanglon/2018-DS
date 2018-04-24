@@ -7,13 +7,36 @@ int Pivot_pos(int A[], int low, int high,int k) {
 	int pivot = A[low];
 	int low_temp = low, high_temp = high;
 	while (low < high) {
-		while (low < high && A[high] > pivot) high--;
+		while (low < high && A[high] >= pivot) high--;
 		A[low] = A[high];
-		while (low < high && A[low] < pivot) low--;
+		while (low < high && A[low] <= pivot) low--;
 		A[high] = A[low];
 	}
 	A[low] = pivot;
 	if (low == k) return A[low];
 	else if (low > k) return Pivot_pos(A, low_temp, low - 1,k);
 	else return Pivot_pos(A, low + 1, high_temp, k - low);
+}
+
+/*不知道为什么，上述王道的算法无法出结果，如果有哪位能够指出我的错误点还请留言指正*/
+
+/*一下使用自己的算法，经过验证可以有效得得到答案*/
+
+int Pivot(int low, int high) {
+	int pivot = a[low];
+	while (low < high) {
+		while (low < high && a[high] >= pivot) high--;
+		a[low] = a[high];
+		while (low < high && a[low] <= pivot) low++;
+		a[high] = a[low];
+	}
+	a[low] = pivot;
+	return low;
+}
+
+int Find_K(int low, int high, int k) {
+	int pivot = Pivot(low, high);
+	if (pivot - low == k - 1) return a[pivot];
+	else if (k - 1 < pivot - low) return Find_K(low, pivot - 1, k);
+	else return Find_K(pivot + 1, high, k + low - pivot - 1);
 }
