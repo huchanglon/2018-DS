@@ -1,0 +1,17 @@
+
+/*荷兰国旗问题，现在有“红白蓝”三种颜色的随机组合，要求排列成“红白蓝”，时间复杂度要在O(n)*/
+/*P291 题目07 [习题]*/
+
+typedef enum{RED, WHITE, BLUE} color;
+
+void Flag_Arraneg(color a[], int n) {
+	int i = 0, j = 0, k = n - 1;
+	while (j <= k) {
+		switch (a[j])
+		{
+		case RED: swap(a[i], a[j]); i++; j++; break;
+		case WHITE: j++; break;
+		case BLUE:swap(a[j], a[k]); k--; break;
+		}
+	}
+}
