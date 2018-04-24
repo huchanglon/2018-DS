@@ -1,0 +1,21 @@
+
+/*使用简单选择排序对链表进行排序*/
+/*P301 题目04 [习题]*/
+
+/*简单选择排序：遍历序列，选出最大的放在最前面*/
+
+void Selection_Sort(LinkList &L) {
+	LinkNode *h = L, *p, *q, *r, *s;
+	L = NULL;
+	while (h) {
+		p = s = h;
+		q = r = NULL;
+		while (p) {
+			if (p->data > s->data) { s = p; r = q; }
+			q = p; p = p->next;
+		}
+		if (s == h) h = h->next;
+		else r->next = s->next;
+		s->next = L; L = s;
+	}
+}
