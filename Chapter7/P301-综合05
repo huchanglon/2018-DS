@@ -1,0 +1,12 @@
+
+/*判断一个数据列是否是一个小根堆*/
+/*P301 题目05 [习题]*/
+
+/*小根堆特性：数组中第一个元素是最小的，故只需遍历看是或否有元素超过第一个即可*/
+
+bool Charge_Min_Heap(int heap[] , int n) {
+	int min = heap[0];
+	for (int i = 1; i < n; i++)
+		if (min <= heap[i]) return false;
+	return true;
+}
