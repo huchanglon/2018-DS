@@ -1,0 +1,13 @@
+
+/*实现计数排序*/
+/*P313 题目03 [习题]*/
+
+void Count_Sort(int a[], int b[],int n) {
+	int cnt = 0, i, j;
+	for (i = 0; i < n; i++) {
+		for (j = 0, cnt = 0; j < n; j++) {
+			if (a[i] > a[j]) cnt++;
+		}
+		b[cnt] = a[i];
+	}
+}
